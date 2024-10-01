@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+
+{% block title %}
+HOME
+{% endblock title %}
+
+{% block content %}
+<style>
+
+    .video-banner {
+        position: relative;
+        width: 100%;
+        height: 80vh;
+        overflow: hidden;
+    }
+
+    .banner-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        text-align: center;
+        z-index: 1;
+    }
+
+    .banner-content h1 {
+        font-size: 3rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .banner-content p {
+        font-size: 1.5rem;
+    }
+
+    .carousel {
+        width: 100vw; 
+        margin: 0; 
+        padding: 0;
+    }
+
+    .carousel-inner {
+        width: 100%;
+        height: 70vh;
+    }
+    
+    .carousel-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+
+    .carousel-caption {
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+    }
+
+    .container-card {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .card {
+        flex: 1;
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        text-align: center;
+        padding: 20px;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    .card img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .card h3 {
+        font-size: 18px;
+        margin: 10px 0;
+        color: #333;
+    }
+    
+    .card p {
+        font-size: 14px;
+        color: #666;
+    }
+    
+    <!--Big banner-->
+  
+    
+    body, html {
+        height: 100%;
+        font-family: Arial, sans-serif;
+    }
+    
+    .page_container {
+        display: flex;
+        height: 100vh; 
+        width: 100vw; 
+        margin-bottom: 10px;
+    }
+    
+    .left_img {
+        flex: 0.5; 
+        background-image: url('/static/big-banner.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius:5px;
+    }
+
+    .left_img2 {
+        flex: 0.5; 
+        background-image: url('/static/big-banner2.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius:5px;
+    }
+    
+    .right_text {
+        flex: 1; 
+        padding: 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #f7f7f7;
+    }
+    
+    .right_text h1 {
+        font-size: 3em;
+        margin-bottom: 10px;
+        color: #004274; 
+        text-align:center;
+    }
+    
+    .right_text h2 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+        color: #2a2a2a;
+        text-align:center;
+    }
+    
+    .right_text p {
+        font-size: 1.2em;
+        line-height: 1;
+        color: #333;
+        margin-bottom: 17px;
+        text-align:center;
+        
+    }
+    
+    
+</style>
+
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        <div class="container mt-3">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+<!--Video banner-->
+<div class="video-banner">
+    <video autoplay muted loop>
+        <source src="/static/intro1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="banner-content">
+        <h1>Welcome to Live Care Hospital</h1>
+        <p>Advanced care and treatments at your service.</p>
+    </div>
+</div>    
+
+
+<!--Card-->
+<div class="container-card">
+    <a href="/patients" class="card" style="text-decoration: none; color: inherit;">
+        <img src="/static/appointments-card.jpg">
+        <h3>Book an Appointment</h3>
+        <p>With the country's leading experts</p>
+    </a>
+
+    <a href="/doctors" class="card" style="text-decoration: none; color: inherit;">
+        <img src="/static/find-a-doctor-card.jpg">
+        <h3>Doctors</h3>
+        <p>Experienced doctors providing the best care for your health</p>
+    </a>
+
+    <a href="/hospital" class="card" style="text-decoration: none; color: inherit;">
+        <img src="/static/locations-card.jpg">
+        <h3>Hospitals</h3>
+        <p>Comprehensive healthcare services in one place for all your needs</p>
+    </a>  
+</div>
+
+
+<!--Big-Banner-->
+<div class="page_container">
+    <div class="left_img">
+    </div>
+    <div class="right_text">
+        <h1>Healing starts here</h1>
+        <h2>The right answers the first time</h2>
+        <p>Effective treatment depends on getting the right diagnosis.</p>
+        <p>Our experts diagnose and treat the toughest medical challenges.</p>    
+        <br>
+        <br>
+        <h1>Top-ranked in India</h1>
+        <p>Mayo Clinic has more No. 1 rankings than any other hospital in the nation</p>
+        <p>according to U.S. News & World Report.</p>
+    </div>
+</div>
+
+<div class="page_container">
+    <div class="right_text">
+        <h1>World-class care for global patients</h1>
+        <p>We make it easy for patients around the world to
+         get care from Mayo Clinic.</p>    
+        
+    </div>
+    <div class="left_img2">
+    </div>
+</div>
+
+
+{% endblock content %}

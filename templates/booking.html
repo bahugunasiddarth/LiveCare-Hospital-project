@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+
+{% block title %}
+BOOKING
+{% endblock title %}
+
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        <div class="container mt-3">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+<style>
+    /* Global Styles */
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+    }
+
+    .containers {
+        width: 100%;
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 30px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .containers:hover {
+        transform: scale(1.01);
+        transition: transform 0.3s ease;
+    }
+
+    h2 {
+        text-align: center;
+        color: #4CAF50;
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    .booking-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+        table-layout: auto;
+    }
+
+    .booking-table th, .booking-table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .booking-table th {
+        background-color: #4CAF50;
+        color: white;
+        text-transform: uppercase;
+        font-size: 14px;
+    }
+
+    .booking-table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .booking-table tbody tr:hover {
+        background-color: #eaeaea;
+        transform: scale(1.01);
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .booking-table td {
+        color: #333;
+    }
+
+    /* Button Styles */
+    .btn {
+        padding: 5px 10px;
+        font-size: 16px;
+        border-radius: 6px;
+        text-align: center;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: 2px solid #007bff;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border: 2px solid #dc3545;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+    }
+
+    form {
+        display: inline;
+    }
+
+    form button {
+        margin-left: 5px;
+    }
+
+    /* Responsive Table */
+    @media (max-width: 768px) {
+        .booking-table, .booking-table th, .booking-table td {
+            display: block;
+            width: 100%;
+        }
+
+        .booking-table th {
+            display: none;
+        }
+
+        .booking-table td {
+            padding: 10px;
+            text-align: right;
+            position: relative;
+        }
+
+        .booking-table td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 12px;
+            color: #4CAF50;
+        }
+
+        .booking-table td[data-label="Additional Notes"] {
+            white-space: normal;
+        }
+    }
+</style>
+
+<div class="containers">
+    <h2>Your Bookings</h2>
+    <table class="booking-table">
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Appointment Date</th>
+                <th>Appointment Time</th>
+                <th>Gender</th>
+                <th>Doctor</th>
+                <th>Slot</th>
+                <th>Phone Number</th>
+                <th>Additional Notes</th>
+                <th>Actions</th> 
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in query %}
+            <tr>
+                <th scope="row">{{post.pid}}</th>
+                <td>{{post.name}}</td>
+                <td>{{post.email}}</td>
+                <td>{{post.appointment_date}}</td>
+                <td>{{post.appointment_time}}</td>
+                <td>{{post.gender}}</td>
+                <td>{{post.doctor}}</td>
+                <td>{{post.slot}}</td>
+                <td>{{post.phone_number}}</td>
+                <td>{{post.additional_notes}}</td>
+                <td>
+                    <a href="/edit/{{post.pid}}">
+                        <button class="btn btn-primary">Edit</button>
+                    </a>
+                    <form action="/delete/{{post.pid}}" method="POST" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Are you sure you want to delete this record?');" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>       
+            </tr>    
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

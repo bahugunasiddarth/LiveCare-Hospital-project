@@ -1,0 +1,420 @@
+{% extends "base.html" %}
+
+{% block title %}
+DOCTORS
+{% endblock title %}
+
+{% block content %}
+<style>
+
+.form-control {
+    margin: 5px;
+    border-radius: 6px;
+}
+
+.btn {
+    margin: 5px;
+    border-radius: 6px;
+}
+
+.d-inline-elements {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.box {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+    flex: 1;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 295px;
+    position: relative; /* For positioning the text */
+}
+
+.box h1, .box h2, .box h3 {
+    font-size: 20px; /* Make the text smaller */
+    margin: 0;
+    padding: 0;
+}
+
+.box h1 {
+    font-size: 25px; /* Slightly larger for the name */
+}
+
+.text-bottom {
+    position: absolute;
+    top: 12px; /* Place the text 10px from the bottom */
+    left:5px;  /* Place the text 10px from the left */
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.box img{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-left:260px;
+}
+
+.add_func{
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: left;    
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    align-items: flex-end;
+}
+
+.button-container .btn {
+    flex: 1;
+    margin-right: 10px; /* Space between buttons */
+    margin-top:90px;
+}
+
+.btn:hover {
+    background-color: #ffff;
+    color:black ;
+  }
+
+.list-unstyled {
+    gap: 10px;                /* Space between images */
+    list-style: none;         /* Removes bullets */
+    padding: 15px;               /* Removes default padding */
+}
+
+.box .daytext {
+    font-size: 12px;
+    color: #555;
+}
+
+.box .timetext {
+    font-size: 10px; 
+    color: #999;
+}
+
+
+</style>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-inline-elements">
+                <!-- Search Form -->
+                <form class="form-control d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-info" type="submit">Search</button>
+                </form>
+
+                <!-- Filter by Hospital -->
+                <select class="form-control" id="hospitalSelect" name="hospital" required>
+                    <option value="" disabled selected>Filter by Hospital</option>
+                    <option >LiveCare Hospital Noida</option>
+                    <option >LiveCare Hospital Mumbai</option>
+                    <option >LiveCare Hospital Delhi</option>
+                    <option >LiveCare Hospital Bangalore</option>
+                    <option >LiveCare Hospital Ahmedabad</option>
+                    <option >LiveCare Hospital Pune</option>
+                    <option >LiveCare Hospital Chennai</option>
+                    <option >LiveCare Hospital Kolkata</option>
+                    <option >LiveCare Hospital Hyderabad</option>
+                    <option >LiveCare Hospital Thiruvananthapuram</option>
+                    <option >LiveCare Hospital Jaipur</option>
+                </select>
+
+                <!-- Filter by Speciality -->
+                <select class="form-control" id="specialitySelect" name="speciality" required>
+                    <option value="" disabled selected>Filter by Speciality</option>
+                    <option value="Dr. Anoop Misra">Dr. Anoop Misra</option>
+                    <option value="Dr. Jane Smith (Dermatologist)">Dr. Jane Smith (Dermatologist)</option>
+                    <option value="Dr. Emily Brown (Pediatrician)">Dr. Emily Brown (Pediatrician)</option>
+                    <option value="Dr. Rakesh Sharma (Cardiologist)">Dr. Rakesh Sharma (Cardiologist)</option>
+                    <option value="Dr. Neha Gupta (Dermatologist)">Dr. Neha Gupta (Dermatologist)</option>
+                    <option value="Dr. Suresh Patel (Pediatrician)">Dr. Suresh Patel (Pediatrician)</option>
+                    <option value="Dr. Priya Kapoor (Gynecologist)">Dr. Priya Kapoor (Gynecologist)</option>
+                    <option value="Dr. Anjali Verma (Oncologist)">Dr. Anjali Verma (Oncologist)</option>
+                    <option value="Dr. Rajesh Khanna (Orthopedic Surgeon)">Dr. Rajesh Khanna (Orthopedic Surgeon)</option>
+                    <option value="Dr. Pooja Agarwal (Neurologist)">Dr. Pooja Agarwal (Neurologist)</option>
+                    <option value="Dr. Vikram Rao (Gastroenterologist)">Dr. Vikram Rao (Gastroenterologist)</option>
+                    <option value="Dr. Shalini Nair (Ophthalmologist)">Dr. Shalini Nair (Ophthalmologist)</option>
+                    <option value="DDr. Manish Malhotra (Plastic Surgeon)">Dr. Manish Malhotra (Plastic Surgeon)</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+    
+    <div class="row">
+    
+        <!-- Box 1 -->
+        <div class="box">
+            <div class="text-bottom">
+                <h1>Dr. Anoop Misra</h1>
+                <h2>Chairman</h2>
+                <h3>Noida</h3>
+                <div class="add_func"><p>15 Years Experience   ₹2000 Fees</p>
+                </div>
+                <hr>
+                <h1 class="daytext">MON-SAT</h1>
+                <h2 class="timetext">(09:00 AM - 04:30 PM)</h2>
+            </div>
+            <img src="/static/md1.jpg" alt="Doctor Image ">
+            <div class="button-container">
+                <button class="btn btn-info" onclick="window.location.href='/patients'">Book Appointment</button>
+                <button class="btn btn-warning">View Profile</button>
+            </div>
+        </div>
+
+        <!-- Box 2 -->
+        <div class="box">
+            <div class="text-bottom">
+                <h1>Dr. Jane Smith</h1>
+                <h2>Dermatologist</h2>
+                <h3>Mumbai</h3>
+                <div class="add_func">
+                    <p>40 Years Experience • ₹2500 Fees</p>
+                </div>
+                <hr>
+                <h1 class="daytext">MON-SAT</h1>
+                <h2 class="timetext">(11:00 AM-05:00 PM)</h2>
+            </div>
+            <img src="/static/mfd.png" alt="Doctor Image">
+            <div class="button-container">
+                <button class="btn btn-info" onclick="window.location.href='/patients'">Book Appointment</button>
+                <button class="btn btn-warning">View Profile</button>
+            </div>
+        </div>
+
+        <!-- Box 3 -->
+        <div class="box">
+            <div class="text-bottom">
+                <h1>Dr. Emily Brown</h1>
+                <h2>Pediatrician</h2>
+                <h3>Delhi</h3>
+                <div class="add_func">
+                    <p>30 Years Experience • ₹2000 Fees</p>
+                </div>
+                <hr>
+                <h1 class="daytext">MON-SAT</h1>
+                <h2 class="timetext">(10:00 AM - 07:30 PM)</h2>
+            </div>
+            <img src="/static/ffd.jpg" alt="Doctor Image">
+            <div class="button-container">
+                <button class="btn btn-info" onclick="window.location.href='/patients'">Book Appointment</button>
+                <button class="btn btn-warning">View Profile</button>
+            </div>
+        </div>
+    <!-- Box 4 -->
+        <div class="box">
+            <div class="text-bottom">
+                <h1>Dr. Rakesh Sharma</h1>
+                <h2>Cardiologist</h2>
+                <h3>Bangalore</h3>
+                <div class="add_func">
+                    <p>20 Years Experience • ₹1800 Fees</p>
+                </div>
+                <hr>
+                <h1 class="daytext">MON-SAT</h1>
+                <h2 class="timetext">(11:00 AM - 05:30 PM)</h2>
+            </div>
+            <img src="/static/md2.jpg" alt="Doctor Image">
+            <div class="button-container">
+                <button class="btn btn-info" onclick="window.location.href='/patients'">Book Appointment</button>
+                <button class="btn btn-warning">View Profile</button>
+            </div>
+        </div>
+
+        <!-- Box 5 -->
+        <div class="box">
+            <div class="text-bottom">
+                <h1>Dr. Neha Gupta</h1>
+                <h2>Dermatologist</h2>
+                <h3>Mumbai</h3>
+                <div class="add_func">
+                    <p>12 Years Experience • ₹1500 Fees</p>
+                </div>
+                <hr>
+                <h1 class="daytext">MON-SAT</h1>
+                <h2 class="timetext">(09:00 AM - 04:30 PM)</h2>
+            </div>
+            <img src="/static/fd1.jpg" alt="Doctor Image">
+            <div class="button-container">
+                <button class="btn btn-info" onclick="window.location.href='/patients'">Book Appointment</button>
+                <button class="btn btn-warning">View Profile</button>
+            </div>
+        </div>
+
+        <!-- Box 6 -->
+        <div class="box">
+            <div class="text-bottom">
+                <h1>Dr. Suresh Patel</h1>
+                <h2>Pediatrician</h2>
+                <h3>Ahmedabad</h3>
+                <div class="add_func">
+                    <p>25 Years Experience • ₹2200 Fees</p>
+                </div>
+                <hr>
+                <h1 class="daytext">MON-SAT</h1>
+                <h2 class="timetext">(03:00 PM-04:00 PM)</h2>
+            </div>
+            <img src="/static/md3.png" alt="Doctor Image">
+            <div class="button-container">
+                <button class="btn btn-info" onclick="window.location.href='/patients'">Book Appointment</button>
+                <button class="btn btn-warning">View Profile</button>
+            </div>
+        </div>
+        <!-- Box 7 -->
+        <div class="box">
+            <div class="text-bottom">
+                <h1>Dr. Priya Kapoor</h1>
+                <h2>Gynecologist</h2>
+                <h3>Delhi</h3>
+                <div class="add_func">
+                    <p>18 Years Experience • ₹2000 Fees</p>
+                </div>
+                <hr>
+                <h1 class="daytext">MON-SAT</h1>
+                <h2 class="timetext">(08:30 AM-05:00 PM)</h2>
+            </div>
+            <img src="/static/fd2.jpg" alt="Doctor Image">
+            <div class="button-container">
+                <button class="btn btn-info" onclick="window.location.href='/patients'">Book Appointment</button>
+                <button class="btn btn-warning">View Profile</button>
+            </div>
+        </div>
+                <!-- Box 8 -->
+        <div class="box">
+            <div class="text-bottom">
+                <h1>Dr. Anjali Verma</h1>
+                <h2>Oncologist</h2>
+                <h3>Pune</h3>
+                <div class="add_func">
+                    <p>22 Years Experience • ₹3000 Fees</p>
+                </div>
+                <hr>
+                <h1 class="daytext">MON-SAT</h1>
+                <h2 class="timetext">(09:00 AM - 04:30 PM)</h2>
+            </div>
+            <img src="/static/fd3.jpg" alt="Doctor Image">
+            <div class="button-container">
+                <button class="btn btn-info" onclick="window.location.href='/patients'">Book Appointment</button>
+                <button class="btn btn-warning">View Profile</button>
+            </div>
+        </div>
+
+        <!-- Box 9 -->
+        <div class="box">
+            <div class="text-bottom">
+                <h1>Dr. Rajesh Khanna</h1>
+                <h2>Orthopedic Surgeon</h2>
+                <h3>Chennai</h3>
+                <div class="add_func">
+                    <p>30 Years Experience • ₹2500 Fees</p>
+                </div>
+                <hr>
+                <h1 class="daytext">MON-SAT</h1>
+                <h2 class="timetext">(11:00 AM - 06:30 PM)</h2>
+            </div>
+            <img src="/static/md4.jpg" alt="Doctor Image">
+            <div class="button-container">
+                <button class="btn btn-info" onclick="window.location.href='/patients'">Book Appointment</button>
+                <button class="btn btn-warning">View Profile</button>
+            </div>
+        </div>
+
+        <!-- Box 10 -->
+        <div class="box">
+            <div class="text-bottom">
+                <h1>Dr. Pooja Agarwal</h1>
+                <h2>Neurologist</h2>
+                <h3>Kolkata</h3>
+                <div class="add_func">
+                    <p>28 Years Experience • ₹3500 Fees</p>
+                </div>
+                <hr>
+                <h1 class="daytext">MON-SAT</h1>
+                <h2 class="timetext">(08:00 AM - 3:30 PM)</h2>
+            </div>
+            <img src="/static/fd4.jpg" alt="Doctor Image">
+            <div class="button-container">
+                <button class="btn btn-info" onclick="window.location.href='/patients'">Book Appointment</button>
+                <button class="btn btn-warning">View Profile</button>
+            </div>
+        </div>
+                <!-- Box 11 -->
+        <div class="box">
+            <div class="text-bottom">
+                <h1>Dr. Vikram Rao</h1>
+                <h2>Gastroenterologist</h2>
+                <h3>Hyderabad</h3>
+                <div class="add_func">
+                    <p>15 Years Experience • ₹2000 Fees</p>
+                </div>
+                <hr>
+                <h1 class="daytext">MON-SAT</h1>
+                <h2 class="timetext">(09:00 AM - 05:30 PM)</h2>
+            </div>
+            <img src="/static/md5.png" alt="Doctor Image">
+            <div class="button-container">
+                <button class="btn btn-info" onclick="window.location.href='/patients'">Book Appointment</button>
+                <button class="btn btn-warning">View Profile</button>
+            </div>
+        </div>
+
+        <!-- Box 12 -->
+        <div class="box">
+            <div class="text-bottom">
+                <h1>Dr. Shalini Nair</h1>
+                <h2>Ophthalmologist</h2>
+                <h3>Thiruvananthapuram</h3>
+                <div class="add_func">
+                    <p>18 Years Experience • ₹1800 Fees</p>
+                </div>
+                <hr>
+                <h1 class="daytext">MON-SAT</h1>
+                <h2 class="timetext">(11:00 AM - 02:30 PM)</h2>
+            </div>
+            <img src="/static/fd5.jpg" alt="Doctor Image">
+            <div class="button-container">
+                <button class="btn btn-info" onclick="window.location.href='/patients'">Book Appointment</button>
+                <button class="btn btn-warning">View Profile</button>
+            </div>
+        </div>
+
+        <!-- Box 13 -->
+        <div class="box">
+            <div class="text-bottom">
+                <h1>Dr. Manish Malhotra</h1>
+                <h2>Plastic Surgeon</h2>
+                <h3>Jaipur</h3>
+                <div class="add_func">
+                    <p>35 Years Experience • ₹4000 Fees</p>
+                </div>
+                <hr>
+                <h1 class="daytext">MON-SAT</h1>
+                <h2 class="timetext">(08:00 AM - 01:30 PM)</h2>
+            </div>
+            <img src="/static/md6.jpg" alt="Doctor Image">
+            <div class="button-container">
+                <button class="btn btn-info" onclick="window.location.href='/patients'">Book Appointment</button>
+                <button class="btn btn-warning">View Profile</button>
+            </div>
+        </div>
+    </div>
+</div> 
+
+{% endblock content %}

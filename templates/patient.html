@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+
+{% block title %}
+PATIENTS BOOKING
+{% endblock title %}
+
+{% block content %}
+<!-- Custom CSS Styles -->
+ <style>
+  .card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-img-top {
+    height:auto ;
+    object-fit: contain;
+    border-bottom: 5px solid #007bff;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #007bff;
+  }
+
+  .card-text {
+    font-size: 1rem;
+    color: #666;
+  }
+
+  .list-group-item {
+    font-size: 0.95rem;
+    color: #333;
+  }
+
+  .btn {
+    border-radius: 6px;
+  }
+
+  .btn-outline-primary {
+    border-color: #007bff;
+    color: #007bff;
+    padding:10px;
+  }
+
+  .btn-outline-primary:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  .btn-outline-secondary {
+    border-color: #6c757d;
+    color: #6c757d;
+  }
+
+  .btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: #fff;
+  }
+
+  .form-container {
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-container input, .form-container select {
+    margin-bottom: 15px;
+  }
+
+  .form-container label {
+    font-weight: 500;
+  }
+  .btn-outline-success{
+    margin:10px;
+  }
+</style>
+
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <!-- Card Section -->
+    <div class="col-md-5 mb-4">
+      <div class="card shadow-sm">
+        <img src="/static/appic.jpg" class="card-img-top" alt="Card Image">
+        <div class="card-body">
+          <h5 class="card-title">Appointment Booking</h5>
+          <p class="card-text">Easily book appointments with our hassle-free system and manage your schedule efficiently.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Fast and Secure</li>
+          <li class="list-group-item">Real-time Availability</li>
+          <li class="list-group-item">Patient-Friendly Interface</li>
+        </ul>
+        <div class="card-body">
+          <a href="#" class="btn btn-outline-primary">Book Now</a>
+          <a href="#" class="btn btn-outline-secondary">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booking Form Section -->
+    <div class="col-md-5 mb-4">
+      <div class="form-container shadow-sm">
+        <h5 class="text-success mb-3">Doctor Appointment Booking</h5>
+
+        <br>
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <div class="container mt-3">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+  
+
+        <form action="/patients" method="POST" class="jumbotron">
+           <div class="form-group">
+            <label for="patientEmail">Email Address</label>
+            <input type="email" class="form-control" id="patientEmail" name="email" placeholder="Enter your email" value={{current_user.email}} required>
+           </div>
+
+          <div class="form-group">
+            <label for="patientName">Full Name</label>
+            <input type="text" class="form-control" id="patientName"  name="name" placeholder="Enter your full name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="appointmentDate">Appointment Date</label>
+            <input type="date" class="form-control" name="appointment_date" id="appointmentDate" required>
+          </div>
+
+          <div class="form-group">
+            <label for="appointmentTime">Select Appointment Time</label>
+            <input type="time" class="form-control" name="appointment_time" id="appointmentTime" required>
+          </div>
+          
+
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select class="form-control" id="gender" name="gender" required>
+              <option value="" disabled selected>Select a Gender</option>
+              <option value="1">Male</option>
+              <option value="2">Female</option>
+              <option value="3">Others</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="doctorSelect">Select Doctor</label>
+            <select class="form-control" id="doctorSelect" name="doctor" required>
+              <option value="" disabled selected>Select a doctor</option>
+              <option value="Dr. Anoop Misra">Dr. Anoop Misra</option>
+                    <option value="Dr. Jane Smith (Dermatologist)">Dr. Jane Smith (Dermatologist)</option>
+                    <option value="Dr. Emily Brown (Pediatrician)">Dr. Emily Brown (Pediatrician)</option>
+                    <option value="Dr. Rakesh Sharma (Cardiologist)">Dr. Rakesh Sharma (Cardiologist)</option>
+                    <option value="Dr. Neha Gupta (Dermatologist)">Dr. Neha Gupta (Dermatologist)</option>
+                    <option value="Dr. Suresh Patel (Pediatrician)">Dr. Suresh Patel (Pediatrician)</option>
+                    <option value="Dr. Priya Kapoor (Gynecologist)">Dr. Priya Kapoor (Gynecologist)</option>
+                    <option value="Dr. Anjali Verma (Oncologist)">Dr. Anjali Verma (Oncologist)</option>
+                    <option value="Dr. Rajesh Khanna (Orthopedic Surgeon)">Dr. Rajesh Khanna (Orthopedic Surgeon)</option>
+                    <option value="Dr. Pooja Agarwal (Neurologist)">Dr. Pooja Agarwal (Neurologist)</option>
+                    <option value="Dr. Vikram Rao (Gastroenterologist)">Dr. Vikram Rao (Gastroenterologist)</option>
+                    <option value="Dr. Shalini Nair (Ophthalmologist)">Dr. Shalini Nair (Ophthalmologist)</option>
+                    <option value="Dr. Manish Malhotra (Plastic Surgeon)">Dr. Manish Malhotra (Plastic Surgeon)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="slot">Slot</label>
+            <select class="form-control" id="slot" name="slot" required>
+              <option value="" disabled selected>Slot</option>
+              <option value="Morning">Morning</option>
+              <option value="Evening">Evening</option>
+              <option value="Night">Night</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="phone_number">Phone Number</label>
+            <input type="number" class="form-control" id="patientNumber"  name="phone_number" placeholder="Phone Number" required>
+          </div>
+
+          <div class="form-group">
+            <label for="notes">Additional Notes</label>
+            <textarea class="form-control" id="notes" rows="3" name="notes" placeholder="Any additional notes (optional)"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-outline-success btn-block">Book Appointment</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
