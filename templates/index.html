@@ -7,12 +7,7 @@ HOME
 {% block content %}
 <style>
 
-    .video-banner {
-        position: relative;
-        width: 100%;
-        height: 80vh;
-        overflow: hidden;
-    }
+   
 
     .banner-content {
         position: absolute;
@@ -167,6 +162,26 @@ HOME
     }
     
     
+    .carousel-inner {
+        position: relative;
+        width: 100%;
+        height: 50vh;
+        margin: 0; 
+        overflow: hidden;
+    }
+
+    .carousel-item img {
+        width: 100%;
+        height: 50vh; 
+        object-fit: cover;
+    }
+    
+
+    .carousel-caption {
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+    }
+
 </style>
 
 {% with messages = get_flashed_messages(with_categories=True) %}
@@ -183,17 +198,33 @@ HOME
 {% endwith %}
 
 <!--Video banner-->
-<div class="video-banner">
-    <video autoplay muted loop>
-        <source src="/static/intro1.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    <div class="banner-content">
-        <h1>Welcome to Live Care Hospital</h1>
-        <p>Advanced care and treatments at your service.</p>
+<div id="enhancedCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="/static/cancer.png " class="d-block w-100" alt="Image 1">
+            <div class="d-none d-md-block">
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="/static/old.png" class="d-block w-100" alt="Image 2">
+            <div class="d-none d-md-block">
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="/static/knee.jpg" class="d-block w-100" alt="Image 3">
+            <div class="d-none d-md-block">
+            </div>
+        </div>
     </div>
-</div>  
-  
+    <button class="carousel-control-prev" type="button" data-bs-target="#enhancedCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#enhancedCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
 
 
 <!--Card-->
