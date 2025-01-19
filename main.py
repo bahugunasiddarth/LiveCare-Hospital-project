@@ -14,11 +14,11 @@ app = Flask(__name__)
 app.secret_key = 'siddhi'
     
 # Configure the remote MySQL connection
-db_config = {
-    'user': 'sql12734541',
-    'password': '1tCVtyyDjZ',
-    'host': 'sql12.freemysqlhosting.net',
-    'database': 'sql12734541',
+db_config = { 
+    'user': 'if0_38135213',
+    'password': '8fFGQSvBj6Nw',
+    'host': 'sql107.infinityfree.com',
+    'database': 'if0_38135213_new_hms',
     'port': 3306,
     'raise_on_warnings': True
 }
