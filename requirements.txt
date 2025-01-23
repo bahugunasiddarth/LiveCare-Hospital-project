@@ -15,3 +15,6 @@ mysql-connector-python==8.0.33
 SQLAlchemy==2.0.35
 typing_extensions==4.12.2
 Werkzeug==3.0.4
+pymongo==4.4.0  # Add this line for PyMongo
+# or
+# mongoengine==0.24.1  # Add this line for MongoEngine
