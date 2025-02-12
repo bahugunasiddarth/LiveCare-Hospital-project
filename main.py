@@ -82,42 +82,64 @@ def bookings():
         item["_id"] = str(item["_id"])
     return render_template('booking.html', query=query)
 
-@app.route('/edit/<string:pid>', methods=['POST', 'GET'])
+@app.route('/edit/<string:pid>', methods=['GET', 'POST'])
 @login_required
 def edit(pid):
-    if request.method == 'GET':
-        # Fetch the patient data using the patient ID (pid)
+    try:
         patient = db.patients.find_one({"_id": ObjectId(pid)})
-        if patient:
-            patient["_id"] = str(patient["_id"])  # Convert ObjectId to string for use in the template
-            return render_template('edit.html', patient=patient)
-        flash("Patient not found.", "danger")
-        return redirect(url_for('bookings'))
+        if not patient:
+            flash("Patient not found.", "danger")
+            return redirect(url_for('bookings'))
 
-    if request.method == 'POST':
-        # Update patient data based on the form submission
-        data = {
-            "email": request.form.get('email'),
-            "name": request.form.get('name'),
-            "appointment_date": request.form.get('appointment_date'),
-            "appointment_time": request.form.get('appointment_time'),
-            "gender": request.form.get('gender'),
-            "doctor": request.form.get('doctor'),
-            "slot": request.form.get('slot'),
-            "phone_number": request.form.get('phone_number'),
-            "additional_notes": request.form.get('additional_notes')
-        }
-        # Update the patient document in the database
-        db.patients.update_one({"_id": ObjectId(pid)}, {"$set": data})
-        flash("Patient information updated successfully.", "success")
+        if request.method == 'POST':
+            data = {
+                "email": request.form.get('email').strip(),
+                "name": request.form.get('name').strip(),
+                "appointment_date": request.form.get('appointment_date'),
+                "appointment_time": request.form.get('appointment_time'),
+                "gender": request.form.get('gender'),
+                "doctor": request.form.get('doctor'),
+                "slot": request.form.get('slot'),
+                "phone_number": request.form.get('phone_number'),
+                "additional_notes": request.form.get('additional_notes', '').strip()
+            }
+
+            update_result = db.patients.update_one({"_id": ObjectId(pid)}, {"$set": data})
+
+            if update_result.modified_count > 0:
+                flash("Patient information updated successfully.", "success")
+            else:
+                flash("No changes were made.", "info")
+
+            return redirect(url_for('bookings'))
+
+        patient["_id"] = str(patient["_id"])  # Convert ObjectId to string for use in templates
+        return render_template('edit.html', patient=patient)
+
+    except Exception as e:
+        flash(f"An error occurred: {str(e)}", "danger")
         return redirect(url_for('bookings'))
+    
+@app.route('/hospital')
+def hospital():
+    return render_template('hospital.html')    
 
 @app.route('/delete/<string:pid>', methods=['GET', 'POST'])
 @login_required
 def delete(pid):
-    db.patients.delete_one({"_id": ObjectId(pid)})
-    flash("Slot Deleted Successfully", "danger")
+    print(f"Attempting to delete patient with ID: {pid}")  # Debugging output
+
+    try:
+        result = db.patients.delete_one({"_id": ObjectId(pid)})
+        if result.deleted_count:
+            flash("Slot Deleted Successfully", "danger")
+        else:
+            flash("Patient not found.", "warning")
+    except Exception as e:
+        print(f"Error deleting patient: {e}")
+
     return redirect(url_for('bookings'))
+
 
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
@@ -178,3 +200,4 @@ def index():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
