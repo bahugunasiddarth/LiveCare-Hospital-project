@@ -163,6 +163,60 @@ HOME
     }
     
 
+    @media (max-width: 768px) {
+        .banner-content h1 {
+            font-size: 2rem;
+        }
+    
+        .banner-content p {
+            font-size: 1.2rem;
+        }
+    
+        .carousel-inner {
+            height: 30vh;
+        }
+    
+        .container-card {
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .card {
+            width: 90%;
+        }
+    
+        .page_container {
+            flex-direction: column;
+            height: auto;
+        }
+    
+        .left_img, .left_img2 {
+            flex: none;
+            width: 100%;
+            height: 250px;
+        }
+    
+        .right_text {
+            padding: 30px;
+        }
+    
+        .right_text h1 {
+            font-size: 2rem;
+        }
+    
+        .right_text h2 {
+            font-size: 1.5rem;
+        }
+    
+        .right_text p {
+            font-size: 1rem;
+        }
+    
+        .video-container {
+            height: 40vh;
+        }
+    }
+    
 </style>
 
 {% with messages = get_flashed_messages(with_categories=True) %}
