@@ -19,7 +19,6 @@ BOOKING
 {% endwith %}
 
 <style>
-    /* Global Styles */
     * {
         box-sizing: border-box;
     }
@@ -32,8 +31,8 @@ BOOKING
     }
 
     .containers {
-        width: 95%;  /* Increased width */
-        max-width: 1400px; /* Increased max width */
+        width: 95%;
+        max-width: 1400px;
         margin: 40px auto;
         padding: 30px;
         background-color: white;
@@ -54,10 +53,8 @@ BOOKING
         width: 100%;
     }
 
-    /* Booking Table */
     .booking-table {
         width: 100%;
-        table-layout: auto;
         border-collapse: collapse;
         font-size: 16px;
     }
@@ -87,27 +84,6 @@ BOOKING
         transition: background-color 0.3s ease;
     }
 
-    /* Column Width Adjustments */
-    .booking-table th:nth-child(1), 
-    .booking-table td:nth-child(1) {
-        width: 160px; /* Booking ID */
-        font-size: 12px;
-    }
-
-    .booking-table th:nth-child(3), 
-    .booking-table td:nth-child(3) {
-        width: 220px; /* Email */
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .booking-table th:nth-child(9), 
-    .booking-table td:nth-child(9) {
-        width: 160px; /* Phone Number */
-        word-break: break-word;
-    }
-
-    /* Button Styles */
     .btn {
         padding: 5px 10px;
         font-size: 14px;
@@ -122,15 +98,15 @@ BOOKING
         color: white;
     }
 
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #0056b3;
-    }
-
     .btn-danger {
         background-color: #dc3545;
         border: 2px solid #dc3545;
         color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
     }
 
     .btn-danger:hover {
@@ -138,36 +114,32 @@ BOOKING
         border-color: #bd2130;
     }
 
-    /* Ensure buttons stay within their cells */
-    .booking-table td:last-child {
-        justify-content: center;
-        align-items: center;
-        
-    }
-
-    form {
-        display: inline;
-    }
-
-    form button {
-        margin-left: 5px;
-    }
-
-    /* Responsive Design */
     @media (max-width: 768px) {
-        .booking-table, .booking-table th, .booking-table td {
-            display: block;
-            width: 100%;
+        .table-responsive {
+            overflow-x: auto;
         }
 
-        .booking-table th {
+        .booking-table, .booking-table thead, .booking-table tbody, .booking-table th, .booking-table td, .booking-table tr {
+            display: block;
+        }
+
+        .booking-table thead tr {
             display: none;
         }
 
-        .booking-table td {
+        .booking-table tr {
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
             padding: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .booking-table td {
             text-align: right;
             position: relative;
+            padding-left: 50%;
         }
 
         .booking-table td::before {
@@ -179,10 +151,6 @@ BOOKING
             text-transform: uppercase;
             font-size: 12px;
             color: #4CAF50;
-        }
-
-        .booking-table td[data-label="Additional Notes"] {
-            white-space: normal;
         }
     }
 </style>
@@ -203,22 +171,22 @@ BOOKING
                     <th>Slot</th>
                     <th>Phone Number</th>
                     <th>Additional Notes</th>
-                    <th>Actions</th> 
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for post in query %}
                 <tr>
-                    <th scope="row">{{ post._id }}</th>
-                    <td>{{ post.name }}</td>
-                    <td>{{ post.email }}</td>
-                    <td>{{ post.appointment_date }}</td>
-                    <td>{{ post.appointment_time }}</td>
-                    <td>{{ post.gender }}</td>
-                    <td>{{ post.doctor }}</td>
-                    <td>{{ post.slot }}</td>
-                    <td>{{ post.phone_number }}</td>
-                    <td>{{ post.additional_notes }}</td>
+                    <td data-label="Booking ID">{{ post._id }}</td>
+                    <td data-label="Name">{{ post.name }}</td>
+                    <td data-label="Email">{{ post.email }}</td>
+                    <td data-label="Date">{{ post.appointment_date }}</td>
+                    <td data-label="Time">{{ post.appointment_time }}</td>
+                    <td data-label="Gender">{{ post.gender }}</td>
+                    <td data-label="Doctor">{{ post.doctor }}</td>
+                    <td data-label="Slot">{{ post.slot }}</td>
+                    <td data-label="Phone Number">{{ post.phone_number }}</td>
+                    <td data-label="Additional Notes">{{ post.additional_notes }}</td>
                     <td>
                         <a href="/edit/{{ post._id }}">
                             <button class="btn btn-primary">Edit</button>
@@ -226,8 +194,8 @@ BOOKING
                         <form action="/delete/{{ post._id }}" method="POST" style="display:inline;">
                             <button type="submit" onclick="return confirm('Are you sure you want to delete this record?');" class="btn btn-danger">Delete</button>
                         </form>
-                    </td>       
-                </tr>    
+                    </td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
