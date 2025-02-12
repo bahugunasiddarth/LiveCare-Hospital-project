@@ -73,7 +73,7 @@ Edit Patient
         {% endif %}
         {% endwith %}
 
-        <form method="POST" action="{{ url_for('edit', pid=patient['pid']) }}">
+        <form action="{{ url_for('edit', pid=patient['_id']) }}" method="POST">
           <div class="form-group">
             <label for="patientEmail">Email Address</label>
             <input type="email" class="form-control" id="patientEmail" name="email" placeholder="Enter your email" value="{{ patient['email'] }}" required>
@@ -151,3 +151,4 @@ Edit Patient
 </div>
 
 {% endblock content %}
+                                                                                
