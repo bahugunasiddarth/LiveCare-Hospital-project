@@ -86,6 +86,10 @@ def bookings():
 @login_required
 def edit(pid):
     try:
+        if not ObjectId.is_valid(pid):
+            flash("Invalid Patient ID", "danger")
+            return redirect(url_for('bookings'))
+
         patient = db.patients.find_one({"_id": ObjectId(pid)})
         if not patient:
             flash("Patient not found.", "danger")
@@ -104,21 +108,17 @@ def edit(pid):
                 "additional_notes": request.form.get('additional_notes', '').strip()
             }
 
-            update_result = db.patients.update_one({"_id": ObjectId(pid)}, {"$set": data})
-
-            if update_result.modified_count > 0:
-                flash("Patient information updated successfully.", "success")
-            else:
-                flash("No changes were made.", "info")
-
+            db.patients.update_one({"_id": ObjectId(pid)}, {"$set": data})
+            flash("Patient information updated successfully.", "success")
             return redirect(url_for('bookings'))
 
-        patient["_id"] = str(patient["_id"])  # Convert ObjectId to string for use in templates
+        patient["_id"] = str(patient["_id"])  # Convert ObjectId to string for template
         return render_template('edit.html', patient=patient)
 
     except Exception as e:
         flash(f"An error occurred: {str(e)}", "danger")
         return redirect(url_for('bookings'))
+
     
 @app.route('/hospital')
 def hospital():
@@ -127,7 +127,7 @@ def hospital():
 @app.route('/delete/<string:pid>', methods=['GET', 'POST'])
 @login_required
 def delete(pid):
-    print(f"Attempting to delete patient with ID: {pid}")  # Debugging output
+    print(f"Attempting to delete patient with ID: {pid}")  
 
     try:
         result = db.patients.delete_one({"_id": ObjectId(pid)})
@@ -200,4 +200,3 @@ def index():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
